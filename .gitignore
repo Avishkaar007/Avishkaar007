@@ -1,0 +1,3 @@
+# The old generated-article workflow is deliberately excluded.
+# Published content lives in content/articles.json instead.
+/editor.html

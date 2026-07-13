@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jin — Avishkaar007</title>
+<meta name="description" content="Jin's corner of the internet: browser extensions, android apps, web apps, and articles." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    var saved = localStorage.getItem('jin-theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+</head>
+<body>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============ COMMAND PALETTE (hidden until ⌘K / Ctrl+K, or the nav button) ============ -->
+  <div class="palette-overlay" id="paletteOverlay">
+    <div class="palette" role="dialog" aria-label="Command palette">
+      <div class="palette-input-row">
+        <span class="mono palette-prompt">&gt;</span>
+        <input type="text" id="paletteInput" class="palette-input mono" placeholder="Type a command or search..." autocomplete="off" />
+        <span class="mono palette-esc">esc</span>
+      </div>
+      <ul class="palette-list" id="paletteList"></ul>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav mono">
+    <a href="#top" class="nav-brand">JIN</a>
+    <div class="nav-links">
+      <a href="#extensions">Extensions</a>
+      <a href="#android">Android</a>
+      <a href="#webapps">Web Apps</a>
+      <a href="#articles">Articles</a>
+      <div class="nav-tools">
+        <button class="palette-trigger mono" id="paletteTrigger" aria-label="Open command palette">
+          <span>⌘K</span><span class="trigger-label">jump around</span>
+        </button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+   <div class="bg-leaf" >
+<img src="/assets/drawing.svg"  style="position: absolute; z-index: -1; opacity: 0.2; transform: translate(150px) scale(0.5);" alt="" srcset="">
+</div>
+  <header class="hero" id="top">
+    <div class="texture-bandhani" aria-hidden="true"></div>
+    <svg class="motif-corner tl" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <path d="M4 40V4H40" stroke-width="1.5"/>
+      <path d="M4 60C4 30 30 4 60 4" stroke-width="1.5"/>
+      <circle cx="4" cy="4" r="3" fill="var(--signal)" stroke="none"/>
+    </svg>
+    <svg class="motif-corner br" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <path d="M4 40V4H40" stroke-width="1.5"/>
+      <path d="M4 60C4 30 30 4 60 4" stroke-width="1.5"/>
+      <circle cx="4" cy="4" r="3" fill="var(--pulse)" stroke="none"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="avatar-wrap" id="avatarWrap">
+        <div class="avatar" id="avatar">
+          <img src="assets/avatar.png" alt="Jin" id="avatarImg" />
+          <span class="avatar-initial">J</span>
+        </div>
+        <div class="avatar-ring"></div>
+      </div>
+
+      <p class="eyebrow mono">// hey, welcome</p>
+      <h1 class="wordmark">JIN</h1>
+      <p class="tagline">I build browser extensions, android apps, and web apps —<br>and write about it along the way.</p>
+
+      <div class="hero-tags mono">
+        <span class="tag tag-signal">Browser Extensions</span>
+        <span class="tag tag-pulse">Android Apps</span>
+        <span class="tag tag-wire">Web Apps</span>
+      </div>
+
+      <p class="hero-hint mono">press <kbd>⌘</kbd><kbd>K</kbd> to jump anywhere on this site</p>
+    </div>
+    <a href="#extensions" class="scroll-cue mono" aria-label="Scroll to content">↓ scroll</a>
+  </header>
+
+  <main>
+
+    <!-- ============ BROWSER EXTENSIONS ============ -->
+    <section class="section" id="extensions">
+      <p class="section-eyebrow mono">// 01</p>
+      <h2 class="section-title">Browser Extensions</h2>
+
+      <div class="card-grid">
+        <article class="card card-signal tilt reveal">
+          <p class="card-eyebrow mono">brave · manifest v3 · macOS</p>
+          <h3 class="card-title">Local Music for YT Music</h3>
+          <p class="card-body">
+            Drops a full local music library straight into YouTube Music's own UI —
+            folder picker, embedded cover art, a fullscreen "now playing" view with
+            a background that samples live colors off the album art, and macOS
+            media-key integration.
+          </p>
+          <div class="card-tags mono">
+            <span>#file-system-access-api</span>
+            <span>#media-session</span>
+          </div>
+        </article>
+
+        <article class="card card-empty tilt reveal">
+          <p class="card-eyebrow mono">next up</p>
+          <h3 class="card-title">Your next extension goes here</h3>
+          <p class="card-body">Duplicate this card in index.html when you ship the next one.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ANDROID APPS ============ -->
+    <section class="section section-alt" id="android">
+      <p class="section-eyebrow mono">// 02</p>
+      <h2 class="section-title">Android Apps</h2>
+
+      <div class="card-grid">
+        <article class="card card-wire tilt reveal card-placeholder">
+          <p class="card-eyebrow mono">coming soon</p>
+          <h3 class="card-title">Nothing published yet</h3>
+          <p class="card-body">This section is ready for whatever you build next — swap this card out when you ship your first Android app.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ WEB APPS ============ -->
+    <section class="section" id="webapps">
+      <p class="section-eyebrow mono">// 03</p>
+      <h2 class="section-title">Web Apps</h2>
+
+      <div class="card-grid">
+        <article class="card card-pulse tilt reveal">
+          <p class="card-eyebrow mono">meta · you're looking at it</p>
+          <h3 class="card-title">This site</h3>
+          <p class="card-body">
+            Plain HTML/CSS/JS, no framework, hosted on GitHub Pages. Command palette,
+            3D tilt cards, and an animated background — all dependency-free.
+          </p>
+        </article>
+
+        <article class="card card-empty tilt reveal">
+          <p class="card-eyebrow mono">next up</p>
+          <h3 class="card-title">Your next web app goes here</h3>
+          <p class="card-body">Duplicate this card in index.html when you ship the next one.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ARTICLES ============ -->
+    <section class="section section-alt" id="articles">
+      <p class="section-eyebrow mono">// 04</p>
+      <h2 class="section-title">Articles</h2>
+      <div id="articlesList" class="article-list">
+        <!-- populated by script.js from content/articles.json -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <h2 class="footer-title">Say Hi 👋</h2>
+    <div class="footer-links mono">
+      <a href="https://github.com/Avishkaar007" class="footer-link">GitHub</a>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
